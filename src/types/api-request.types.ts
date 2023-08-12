@@ -4,7 +4,7 @@ export type APIRequestHeaders = {
 
 export type RawHeaders = string[][];
 
-export type APIRequestSearchParams = {
+export type APISearchRequestParams = {
   originLocationCode: string;
   destinationLocationCode: string;
   departureDate: string;

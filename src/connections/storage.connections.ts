@@ -1,7 +1,9 @@
-import knex from "knex";
 import { Redis } from "ioredis";
+import { connect } from "mongoose";
 import { redisConfig } from "../confs/redis.config";
-import knexPoolConfig from "../../knexfile";
 
-export const knexPool = knex(knexPoolConfig.development);
+export const connectToMongo = async () => {
+  await connect(process.env.DB_URL).catch((e) => console.log(e));
+};
+
 export const redisClient = new Redis(redisConfig);
