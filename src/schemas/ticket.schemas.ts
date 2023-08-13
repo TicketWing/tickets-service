@@ -10,5 +10,3 @@ export const favoriteTicketSchema = new Schema<TicketSchemas>({
   ticket_id: { type: String, required: true, unique: true },
   user_id: { type: String, required: true },
 });
-
-

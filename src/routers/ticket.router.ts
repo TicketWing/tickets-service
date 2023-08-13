@@ -1,27 +1,38 @@
 import { Router } from "express";
-import { authenticate, errorMiddleware } from "ticketwing-storage-util";
+import {
+  authenticate,
+  errorMiddleware,
+  validate,
+} from "ticketwing-storage-util";
 import { responseMiddleware } from "../middlewares/response.middleware";
 import { TicketController } from "../controllers/ticket.controller";
+import {
+  addToFavoritesValidationSchema,
+  searchValidationSchema,
+} from "../validations/ticket.validation";
+
 
 const ticketController = new TicketController();
+
 export const ticketRouter = Router();
 
 ticketRouter.use(authenticate);
 
 ticketRouter.post(
-  "search",
+  "/search",
+  validate(searchValidationSchema),
   responseMiddleware(ticketController.searchTickets.bind(ticketController)),
   errorMiddleware
 );
 
 ticketRouter.get(
-  "details/:id",
+  "/details/:id",
   responseMiddleware(ticketController.getTicketDetails.bind(ticketController)),
   errorMiddleware
 );
 
 ticketRouter.get(
-  "favorites",
+  "/favorites",
   responseMiddleware(
     ticketController.getFavoriteTickets.bind(ticketController)
   ),
@@ -29,7 +40,8 @@ ticketRouter.get(
 );
 
 ticketRouter.post(
-  "favorites",
+  "/favorites",
+  validate(addToFavoritesValidationSchema),
   responseMiddleware(
     ticketController.addTicketToFavorite.bind(ticketController)
   ),

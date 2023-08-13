@@ -27,7 +27,7 @@ export class TicketController {
 
   async addTicketToFavorite(req: any) {
     const { id } = req.identification;
-    const { offerId } = req.body;
-    await this.service.addToFavorite(id, offerId);
+    const { ticket_id } = req.body;
+    await this.service.addToFavorite(id, ticket_id);
   }
 }
